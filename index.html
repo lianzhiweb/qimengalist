@@ -1,124 +1,82 @@
 <!DOCTYPE html>
-<html lang="zh-CN" id="rootElement">
+<html lang="zh-CN" data-device="desktop">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[社区] 客户端下载</title>
-    <style>
-        :root {
-            --primary: #3b82f6;
-            --accent: #f59e0b;
-        }
-
-        /* 基础样式 */
-        .download-card {
-            padding: 2rem;
-            border-radius: 1rem;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        /* 桌面端专属样式 */
-        @media (min-width: 768px) {
-            .desktop-only {
-                display: block !important;
-            }
-            .mobile-only {
-                display: none !important;
-            }
-            
-            .platform-selector {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* 移动端专属样式 */
-        @media (max-width: 767px) {
-            .mobile-only {
-                display: block !important;
-            }
-            .desktop-only {
-                display: none !important;
-            }
-
-            .download-btn {
-                width: 100%;
-                padding: 1rem;
-            }
-        }
-
-        /* JS检测后的增强样式 */
-        body.mobile .hero-section {
-            padding: 2rem 1rem;
-        }
-        body.mobile .platform-selector {
-            grid-template-columns: 1fr;
-        }
-        body.mobile .download-card {
-            margin: 1rem 0;
-        }
-    </style>
+    <title>技术社区 - 客户端下载</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico">
 </head>
 <body>
-    <main class="hero-section">
-        <div class="platform-selector">
-            <!-- 桌面端结构 -->
-            <div class="desktop-only">
-                <div class="download-card">
-                    <h2>桌面端专属功能</h2>
-                    <button class="download-btn">下载Windows版</button>
-                    <button class="download-btn">下载macOS版</button>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">TechCommunity</h1>
+            <a href="/admin" class="admin-link">管理入口</a>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="download-section">
+        <div class="container">
+            <div class="hero">
+                <h1>加入技术交流社区</h1>
+                <p>下载客户端开启你的技术之旅</p>
+            </div>
+
+            <!-- 自动检测区块 -->
+            <div class="auto-detect">
+                <div class="detect-content">
+                    <h2>智能识别您的设备</h2>
+                    <div class="download-buttons">
+                        <a id="autoDownloadBtn" class="main-download">
+                            <span class="desktop-only">下载桌面客户端</span>
+                            <span class="mobile-only">下载移动客户端</span>
+                        </a>
+                    </div>
+                    <p class="version-info">最新版本：v2.4.1 | 更新日期：2023-12-20</p>
                 </div>
             </div>
 
-            <!-- 移动端结构 -->
-            <div class="mobile-only">
-                <div class="download-card">
-                    <h2>移动端优化体验</h2>
-                    <button class="download-btn">Android下载</button>
-                    <button class="download-btn">iOS下载</button>
-                    <div class="qrcode-section">
-                        <img src="qrcode.png" alt="扫码下载">
-                        <p>扫码下载移动客户端</p>
+            <!-- 多平台下载 -->
+            <div class="platform-selector">
+                <div class="platform-card mobile-platforms">
+                    <h3>移动端</h3>
+                    <div class="download-options">
+                        <a href="#android" class="download-btn android">
+                            <img src="android-icon.svg" alt="Android">
+                            Android 下载
+                        </a>
+                        <a href="#ios" class="download-btn ios">
+                            <img src="ios-icon.svg" alt="iOS">
+                            iOS 下载
+                        </a>
+                        <div class="qrcode mobile-only">
+                            <img src="download-qrcode.png" alt="扫码下载">
+                            <p>手机扫码下载</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card desktop-platforms">
+                    <h3>桌面端</h3>
+                    <div class="download-options">
+                        <a href="#windows" class="download-btn windows">
+                            <img src="windows-icon.svg" alt="Windows">
+                            Windows 版
+                        </a>
+                        <a href="#macos" class="download-btn macos">
+                            <img src="macos-icon.svg" alt="macOS">
+                            macOS 版
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <script>
-        // 高级设备检测（包含最新设备型号）
-        const isMobile = {
-            Android: () => navigator.userAgent.match(/Android/i),
-            iOS: () => navigator.userAgent.match(/iPhone|iPad|iPod/i),
-            WindowsPhone: () => navigator.userAgent.match(/Windows Phone/i),
-            any: function() {
-                return (this.Android() || this.iOS() || this.WindowsPhone());
-            }
-        };
-
-        // 动态添加设备类
-        if (isMobile.any()) {
-            document.getElementById('rootElement').classList.add('mobile');
-            document.getElementById('rootElement').classList.remove('desktop');
-            
-            // 移动端额外处理
-            const metaViewport = document.createElement('meta');
-            metaViewport.name = 'viewport';
-            metaViewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-            document.head.appendChild(metaViewport);
-        } else {
-            document.getElementById('rootElement').classList.add('desktop');
-            document.getElementById('rootElement').classList.remove('mobile');
-        }
-
-        // 动态加载资源
-        if (isMobile.any()) {
-            const mobileCSS = document.createElement('link');
-            mobileCSS.rel = 'stylesheet';
-            mobileCSS.href = 'mobile.css';
-            document.head.appendChild(mobileCSS);
-        }
-    </script>
+    <!-- 统计脚本 -->
+    <script src="device-detector.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
