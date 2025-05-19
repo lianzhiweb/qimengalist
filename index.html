@@ -2,7 +2,7 @@
 <html lang="zh-CN" data-device="auto">
 <head>
     <meta charset="UTF-8">
-    <title>绮梦社区下载</title>
+    <title>绮梦社区客户端下载</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -41,6 +41,9 @@
             border-radius: 8px;
             text-decoration: none;
             transition: transform 0.2s;
+            background: #f8fafc;
+            color: var(--text);
+            margin: 8px 0;
         }
 
         .main-download {
@@ -49,12 +52,10 @@
             font-size: 1.2rem;
         }
 
-        /* 动态设备样式 */
-        body[data-device="mobile"] .hero {
-            padding: 2rem 0;
-        }
-        body[data-device="mobile"] .platform-card {
-            margin: 1rem 0;
+        /* 安卓按钮特殊样式 */
+        .android-btn {
+            background: #3ddc84;
+            color: white !important;
         }
     </style>
 </head>
@@ -74,12 +75,17 @@
         <div class="platforms">
             <div class="platform-card mobile-only">
                 <h3>移动端</h3>
-                <a href="http://qimengfile.s.odn.cc/d/one/%E7%BB%AE%E6%A2%A6/%E7%BB%AE%E6%A2%A6_1.0.10_0504154637.apk?sign=u7twd4AyewIJnVnh03oGqCyKSnfOqp6ClbAuvDT-Ots=:0" class="download-btn"
-                download="绮梦社区.apk">
-                    <img src="android.svg" width="24" alt=""> Android
+                <!-- 修改后的Android下载链接 -->
+                <a href="http://qimengfile.s.odn.cc/d/one/%E7%BB%AE%E6%A2%A6/%E7%BB%AE%E6%A2%A6_1.0.10_0504154637.apk?sign=u7twd4AyewIJnVnh03oGqCyKSnfOqp6ClbAuvDT-Ots=:0" 
+                   class="download-btn android-btn"
+                   download="绮梦社区.apk">
+                    <img src="android.svg" width="24" alt=""> 
+                    Android 下载
                 </a>
+                
                 <a href="#ios" class="download-btn">
-                    <img src="ios.svg" width="24" alt=""> iOS
+                    <img src="ios.svg" width="24" alt=""> 
+                    iOS 下载
                 </a>
                 <div class="qrcode">
                     <img src="qrcode.png" width="150" alt="扫码下载">
@@ -89,16 +95,16 @@
             <div class="platform-card desktop-only">
                 <h3>桌面端</h3>
                 <a href="#windows" class="download-btn">
-                    <img src="windows.svg" width="24" alt=""> Windows
+                    <img src="windows.svg" width="24" alt=""> 
+                    Windows
                 </a>
                 <a href="#macos" class="download-btn">
-                    <img src="macos.svg" width="24" alt=""> macOS
+                    <img src="macos.svg" width="24" alt=""> 
+                    macOS
                 </a>
             </div>
         </div>
     </div>
-
-
 
     <script>
         // 设备检测与自动适配
@@ -107,13 +113,6 @@
                 .test(navigator.userAgent);
             
             document.documentElement.dataset.device = isMobile ? 'mobile' : 'desktop';
-            
-            // 自动设置下载链接
-            const links = {
-                mobile: '#mobile-download',
-                desktop: '#desktop-download'
-            };
-            document.getElementById('mainDownload').href = isMobile ? links.mobile : links.desktop;
         }
 
         // 初始化
