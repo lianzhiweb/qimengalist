@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>社区管理后台</title>
+    <style>
+        body {
+            font-family: system-ui;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>社区数据看板</h1>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>总用户数</h3>
+            <p id="totalUsers">10,234</p>
+        </div>
+        <div class="stat-card">
+            <h3>今日活跃</h3>
+            <p id="activeToday">1,234</p>
+        </div>
+    </div>
+</body>
+</html>
