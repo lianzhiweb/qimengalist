@@ -1,163 +1,124 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" id="rootElement">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[社区名称] 官方客户端下载</title>
+    <title>[社区] 客户端下载</title>
     <style>
         :root {
-            --primary: #3b82f6;  /* 主品牌色 */
-            --accent: #f59e0b;   /* 强调色 */
+            --primary: #3b82f6;
+            --accent: #f59e0b;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background: #f8fafc;
-            line-height: 1.6;
-        }
-
-        /* 下载引导区 */
-        .hero-section {
-            text-align: center;
-            padding: 6rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), #2563eb);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* 平台选择容器 */
-        .platform-selector {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 3rem auto 0;
-            padding: 0 1rem;
-        }
-
-        /* 下载卡片 */
+        /* 基础样式 */
         .download-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2.5rem;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .download-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* 动态下载按钮 */
-        .dynamic-download-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 1.2rem 2.5rem;
-            font-size: 1.2rem;
-            background: var(--accent);
-            color: white;
-            border-radius: 12px;
-            text-decoration: none;
-            margin-top: 1.5rem;
-            transition: all 0.3s ease;
-            gap: 0.8rem;
-        }
-
-        .dynamic-download-btn:hover {
-            background: #fbbf24;
-            box-shadow: 0 8px 20px rgba(245,158,11,0.3);
-        }
-
-        /* 自动检测平台样式 */
-        .auto-detect {
-            background: #ffffff;
-            color: var(--primary);
-            margin-bottom: 3rem;
-        }
-
-        /* 功能亮点 */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding: 4rem 1.5rem;
+            padding: 2rem;
+            border-radius: 1rem;
             background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        @media (max-width: 768px) {
-            .hero-section { padding: 4rem 1rem; }
-            .dynamic-download-btn { width: 100%; justify-content: center; }
+        /* 桌面端专属样式 */
+        @media (min-width: 768px) {
+            .desktop-only {
+                display: block !important;
+            }
+            .mobile-only {
+                display: none !important;
+            }
+            
+            .platform-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 移动端专属样式 */
+        @media (max-width: 767px) {
+            .mobile-only {
+                display: block !important;
+            }
+            .desktop-only {
+                display: none !important;
+            }
+
+            .download-btn {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        /* JS检测后的增强样式 */
+        body.mobile .hero-section {
+            padding: 2rem 1rem;
+        }
+        body.mobile .platform-selector {
+            grid-template-columns: 1fr;
+        }
+        body.mobile .download-card {
+            margin: 1rem 0;
         }
     </style>
 </head>
 <body>
     <main class="hero-section">
         <div class="platform-selector">
-            <!-- 自动检测平台 -->
-            <div class="download-card auto-detect">
-                <h2>智能识别您的设备</h2>
-                <a href="#auto-detect" class="dynamic-download-btn">
-                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">...</svg>
-                    立即下载（推荐）
-                </a>
-                <p style="margin-top:1rem;opacity:0.9">版本：v2.4.1 | 2023-12-18 更新</p>
-            </div>
-
-            <!-- 手动选择平台 -->
-            <div class="download-card">
-                <h3>选择其他平台</h3>
-                <div style="margin-top:2rem;display:grid;gap:1rem">
-                    <a href="#windows" class="dynamic-download-btn">Windows 版</a>
-                    <a href="#macos" class="dynamic-download-btn">macOS 版</a>
-                    <a href="#android" class="dynamic-download-btn">Android 版</a>
-                    <a href="#ios" class="dynamic-download-btn">iOS 版</a>
+            <!-- 桌面端结构 -->
+            <div class="desktop-only">
+                <div class="download-card">
+                    <h2>桌面端专属功能</h2>
+                    <button class="download-btn">下载Windows版</button>
+                    <button class="download-btn">下载macOS版</button>
                 </div>
             </div>
-        </div>
 
-        <!-- 功能亮点 -->
-        <div class="features">
-            <div>
-                <h3>📱 移动端特性</h3>
-                <p>实时消息推送、移动端专属社区、离线内容缓存</p>
-            </div>
-            <div>
-                <h3>💻 桌面端优势</h3>
-                <p>多窗口操作、系统通知集成、快捷键支持</p>
-            </div>
-            <div>
-                <h3>🔒 安全保障</h3>
-                <p>端到端加密、自动更新、隐私保护模式</p>
+            <!-- 移动端结构 -->
+            <div class="mobile-only">
+                <div class="download-card">
+                    <h2>移动端优化体验</h2>
+                    <button class="download-btn">Android下载</button>
+                    <button class="download-btn">iOS下载</button>
+                    <div class="qrcode-section">
+                        <img src="qrcode.png" alt="扫码下载">
+                        <p>扫码下载移动客户端</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        // 自动检测平台逻辑
-        const userAgent = navigator.userAgent;
-        let downloadLink = '#';
+        // 高级设备检测（包含最新设备型号）
+        const isMobile = {
+            Android: () => navigator.userAgent.match(/Android/i),
+            iOS: () => navigator.userAgent.match(/iPhone|iPad|iPod/i),
+            WindowsPhone: () => navigator.userAgent.match(/Windows Phone/i),
+            any: function() {
+                return (this.Android() || this.iOS() || this.WindowsPhone());
+            }
+        };
 
-        if (/windows/i.test(userAgent)) {
-            downloadLink = '/download/windows';
-        } else if (/macintosh|mac os x/i.test(userAgent)) {
-            downloadLink = '/download/macos';
-        } else if (/android/i.test(userAgent)) {
-            downloadLink = '/download/android';
-        } else if (/iphone|ipad|ipod/i.test(userAgent)) {
-            downloadLink = '/download/ios';
+        // 动态添加设备类
+        if (isMobile.any()) {
+            document.getElementById('rootElement').classList.add('mobile');
+            document.getElementById('rootElement').classList.remove('desktop');
+            
+            // 移动端额外处理
+            const metaViewport = document.createElement('meta');
+            metaViewport.name = 'viewport';
+            metaViewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+            document.head.appendChild(metaViewport);
+        } else {
+            document.getElementById('rootElement').classList.add('desktop');
+            document.getElementById('rootElement').classList.remove('mobile');
         }
 
-        document.querySelector('.auto-detect .dynamic-download-btn').href = downloadLink;
+        // 动态加载资源
+        if (isMobile.any()) {
+            const mobileCSS = document.createElement('link');
+            mobileCSS.rel = 'stylesheet';
+            mobileCSS.href = 'mobile.css';
+            document.head.appendChild(mobileCSS);
+        }
     </script>
 </body>
 </html>
