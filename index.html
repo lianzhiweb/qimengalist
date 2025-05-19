@@ -24,15 +24,6 @@
             padding: 0 20px;
         }
 
-        /* 设备响应式样式 */
-        .mobile-only { display: none; }
-        .desktop-only { display: block; }
-
-        @media (max-width: 768px) {
-            .mobile-only { display: block !important; }
-            .desktop-only { display: none !important; }
-        }
-
         /* 下载按钮 */
         .download-btn {
             display: inline-flex;
@@ -46,12 +37,6 @@
             margin: 8px 0;
         }
 
-        .main-download {
-            background: var(--accent);
-            color: white !important;
-            font-size: 1.2rem;
-        }
-
         /* 安卓按钮特殊样式 */
         .android-btn {
             background: #3ddc84;
@@ -60,64 +45,35 @@
     </style>
 </head>
 <body>
-    <!-- 主内容 -->
     <div class="container">
-        <header class="hero">
-            <h1>绮梦社区客户端</h1>
-            <p>立即下载加入极客社区</p>
-            <a href="#auto-detect" id="mainDownload" class="download-btn main-download">
-                <span class="desktop-only">立即下载</span>
-                <span class="mobile-only">立即下载</span>
-            </a>
-        </header>
-
-        <!-- 多平台下载 -->
-        <div class="platforms">
-            <div class="platform-card mobile-only">
-                <h3>移动端</h3>
-                <!-- 修改后的Android下载链接 -->
-                <a href="http://qimengfile.s.odn.cc/d/one/%E7%BB%AE%E6%A2%A6/%E7%BB%AE%E6%A2%A6_1.0.10_0504154637.apk?sign=u7twd4AyewIJnVnh03oGqCyKSnfOqp6ClbAuvDT-Ots=:0" 
-                   class="download-btn android-btn"
-                   download="绮梦社区.apk">
-                    <img src="android.svg" width="24" alt=""> 
-                    Android 下载
-                </a>
-                
-                <a href="#ios" class="download-btn">
-                    <img src="ios.svg" width="24" alt=""> 
-                    iOS 下载
-                </a>
-                <div class="qrcode">
-                    <img src="qrcode.png" width="150" alt="扫码下载">
-                </div>
-            </div>
-
-            <div class="platform-card desktop-only">
-                <h3>桌面端</h3>
-                <a href="#windows" class="download-btn">
-                    <img src="windows.svg" width="24" alt=""> 
-                    Windows
-                </a>
-                <a href="#macos" class="download-btn">
-                    <img src="macos.svg" width="24" alt=""> 
-                    macOS
-                </a>
-            </div>
-        </div>
+        <!-- 修改后的Android下载按钮 -->
+        <a href="http://qimengfile.s.odn.cc/d/one/%E7%BB%AE%E6%A2%A6/%E7%BB%AE%E6%A2%A6_1.0.10_0504154637.apk?sign=u7twd4AyewIJnVnh03oGqCyKSnfOqp6ClbAuvDT-Ots=:0"
+           class="download-btn android-btn"
+           download="绮梦社区.apk"
+           id="androidDownload">
+            <img src="android.svg" width="24" alt=""> 
+            Android 下载
+        </a>
     </div>
 
     <script>
-        // 设备检测与自动适配
-        function detectDevice() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-                .test(navigator.userAgent);
+        // 强制下载处理
+        document.getElementById('androidDownload').addEventListener('click', function(e) {
+            // 防止默认锚点跳转
+            e.preventDefault();
             
-            document.documentElement.dataset.device = isMobile ? 'mobile' : 'desktop';
-        }
-
-        // 初始化
-        window.addEventListener('DOMContentLoaded', detectDevice);
-        window.addEventListener('resize', detectDevice);
+            // 创建隐藏iframe实现下载
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = this.href;
+            document.body.appendChild(iframe);
+            
+            // 添加下载超时检测
+            setTimeout(() => {
+                if (!confirm('下载未自动开始？请点击确定手动下载')) return;
+                window.open(this.href, '_blank');
+            }, 3000);
+        });
     </script>
 </body>
 </html>
